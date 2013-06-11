@@ -91,7 +91,7 @@
 			this.rootElement = null;
 			this.child = null;
 			this.childElement = [];
-			this.comboElement = {};
+			this.comboElement = null;
 			this.loadElement = null;
 			this.mbElement = null;
 			
@@ -128,7 +128,7 @@
 					this.childElement.push($(elem).find('li:nth-child(' + (i + '') + ') > div')[0]);
 				};
 	
-				this.child.bind('webkitAnimationEnd oanimationend animationend msanimationend', function() {
+				this.child.bind('webkitAnimationEnd animationend', function() {
 					this.classList.remove('marker-shutter');
 					this.style.borderColor = 'rgba(255,255,255,0.3)';
 					this.style.borderWidth = '1px';
@@ -140,14 +140,10 @@
 			}
 
 			this._setComboElement = function(elem) {
-				this.comboElement.root = elem;
-				this.comboElement[0] = elem.getElementsByClassName('a')[0];
-				this.comboElement[1] = elem.getElementsByClassName('b')[0];
-				this.comboElement[2] = elem.getElementsByClassName('c')[0];
-				this.comboElement[3] = elem.getElementsByClassName('d')[0];
-
-				$(this.comboElement.root).find('span').bind('webkitAnimationEnd oanimationend animationend msanimationend', function() {
-					this.classList.remove('release');
+				this.comboElement = $(elem).find('span')[0];
+				
+				$(this.comboElement).bind('webkitAnimationEnd animationend', function() {
+				 	this.classList.remove('release');
 				});
 			}
 	
@@ -397,22 +393,28 @@
 					}
 	
 					root.combo += num.length;
-					if(root.comboElement.root != null) {
-						if(root.combo > 6) {
-							var cmb = root.combo.toString().split('');
-							while(cmb.length < 4) {
-								cmb.splice(0, 0, '0');
-							}
-							for(var i = 0; i < 4; i++) {
-								if(root.comboElement[i].innerText != cmb[i]) {
-									root.comboElement[i].innerText = cmb[i];
-									if(root.comboElement[i].classList.contains('release'))
-										root.comboElement[i].classList.remove('release');
-									root.comboElement[i].classList.add('release');
-								}
-							}
-						}
+					if(root.comboElement != null) {
+						root.comboElement.innerText = root.combo.toString();
+						if(root.comboElement.classList.contains('release'))
+							root.comboElement.classList.remove('release');
+						root.comboElement.classList.add('release');
 					}
+					// if(root.comboElement.root != null) {
+					// 	if(root.combo > 6) {
+					// 		var cmb = root.combo.toString().split('');
+					// 		while(cmb.length < 4) {
+					// 			cmb.splice(0, 0, '0');
+					// 		}
+					// 		for(var i = 0; i < 4; i++) {
+					// 			if(root.comboElement[i].innerText != cmb[i]) {
+					// 				root.comboElement[i].innerText = cmb[i];
+					// 				if(root.comboElement[i].classList.contains('release'))
+					// 					root.comboElement[i].classList.remove('release');
+					// 				root.comboElement[i].classList.add('release');
+					// 			}
+					// 		}
+					// 	}
+					// }
 				}, sync);
 			};
 		};
