@@ -2,11 +2,11 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 	<title>유비트 채보 뷰어</title>
 
-	<link rel="stylesheet/less" href="style.less">
+	<link rel="stylesheet" href="style.css">
 
-	<script src="lib.less.js"></script>
 	<script src="lib.jquery.js"></script>
 	<script src="lib.jubeat.js"></script>
 	<script src="lib.dat-gui.js"></script>
@@ -19,52 +19,84 @@
 </div>
 <ul id="jubeat">
 	<li>
-		<div><div><span></span></div></div>
+		<div>
+			<div class="i"></div>
+		</div>
 	</li>
 	<li>
-		<div><div><span></span></div></div>
+		<div>
+			<div class="i"></div>
+		</div>
 	</li>
 	<li>
-		<div><div><span></span></div></div>
+		<div>
+			<div class="i"></div>
+		</div>
 	</li>
 	<li>
-		<div><div><span></span></div></div>
+		<div>
+			<div class="i"></div>
+		</div>
 	</li>
 	<li>
-		<div><div><span></span></div></div>
+		<div>
+			<div class="i"></div>
+		</div>
 	</li>
 	<li>
-		<div><div><span></span></div></div>
+		<div>
+			<div class="i"></div>
+		</div>
 	</li>
 	<li>
-		<div><div><span></span></div></div>
+		<div>
+			<div class="i"></div>
+		</div>
 	</li>
 	<li>
-		<div><div><span></span></div></div>
+		<div>
+			<div class="i"></div>
+		</div>
 	</li>
 	<li>
-		<div><div><span></span></div></div>
+		<div>
+			<div class="i"></div>
+		</div>
 	</li>
 	<li>
-		<div><div><span></span></div></div>
+		<div>
+			<div class="i"></div>
+		</div>
 	</li>
 	<li>
-		<div><div><span></span></div></div>
+		<div>
+			<div class="i"></div>
+		</div>
 	</li>
 	<li>
-		<div><div><span></span></div></div>
+		<div>
+			<div class="i"></div>
+		</div>
 	</li>
 	<li>
-		<div><div><span></span></div></div>
+		<div>
+			<div class="i"></div>
+		</div>
 	</li>
 	<li>
-		<div><div><span></span></div></div>
+		<div>
+			<div class="i"></div>
+		</div>
 	</li>
 	<li>
-		<div><div><span></span></div></div>
+		<div>
+			<div class="i"></div>
+		</div>
 	</li>
 	<li>
-		<div><div><span></span></div></div>
+		<div>
+			<div class="i"></div>
+		</div>
 	</li>
 </ul>
 
@@ -115,6 +147,7 @@
 			} else {
 				var jbt = new jubeat();
 				jbt.playClap = true;
+				jbt.showNum = true;
 
 				soundManager.setup({
 					url: './soundmanager2/swf/',

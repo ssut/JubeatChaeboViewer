@@ -89,9 +89,11 @@
 			this.mbSize = 0;
 			this.combo = 0;
 			this.last = '';
+			this.lastCnt = 0;
 
 			this.started = false;
 			this.playClap = true;
+			this.showNum = false;
 			
 			this.soundManager = null;
 			this.subSound = {};
@@ -136,6 +138,7 @@
 				};
 	
 				this.child.bind('webkitAnimationEnd animationend', function() {
+					this.getElementsByClassName('i')[0].innerText = '';
 					this.classList.remove('marker-shutter');
 					this.style.borderColor = 'rgba(255,255,255,0.3)';
 					this.style.borderWidth = '1px';
@@ -377,6 +380,12 @@
 			this.drawMarker = function(root, num, sync) {
 				if(root.last == num.join(',')) return;
 				else root.last = num.join(',');
+
+				if(root.lastCnt > 15) root.lastCnt = 0;
+				root.lastCnt++;
+
+				var lastCnt = root.lastCnt;
+				var numElement = [];
 	
 				var border = '';
 				if(num.length > 1) {
@@ -389,12 +398,16 @@
 						root.childElement[num[i] - 1].style.borderColor = border;
 						root.childElement[num[i] - 1].style.borderWidth = '5px';
 					}
+
+					numElement.push(root.childElement[num[i] - 1].getElementsByClassName('i')[0]);
 				}
 
 				// Garbage collection
 				border = null;
 	
 				setTimeout(function() {
+					if(numElement.length == 0) return;
+
 					if(root.playClap == true) {
 						root.playClapSound();
 					}
@@ -405,6 +418,12 @@
 						if(root.comboElement.classList.contains('release'))
 							root.comboElement.classList.remove('release');
 						root.comboElement.classList.add('release');
+					}
+
+					if(root.showNum == true) {
+						for(var i = 0; i < numElement.length; i++) {
+							numElement[i].innerText = lastCnt;
+						}
 					}
 				}, sync);
 			};
