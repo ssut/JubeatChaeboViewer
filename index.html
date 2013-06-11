@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>유비트 채보 뷰어</title>
+
+	<link rel="stylesheet/less" href="style.less">
+
+	<script src="lib.less.js"></script>
+	<script src="lib.jquery.js"></script>
+	<script src="lib.jubeat.js"></script>
+	<script src="lib.dat-gui.js"></script>
+	<script src="soundmanager2/script/soundmanager2.js"></script>
+	<!--[if lt IE 9]>
+		<script src="lib.ie9.js"></script>
+	<![endif]-->
+</head>
+<body>
+<ul id="mubar"></ul>
+<div id="combo">
+	<span class="a"></span>
+	<span class="b"></span>
+	<span class="c"></span>
+	<span class="d"></span>
+</div>
+<ul id="jubeat">
+	<li>
+		<div><div><span></span></div></div>
+	</li>
+	<li>
+		<div><div><span></span></div></div>
+	</li>
+	<li>
+		<div><div><span></span></div></div>
+	</li>
+	<li>
+		<div><div><span></span></div></div>
+	</li>
+	<li>
+		<div><div><span></span></div></div>
+	</li>
+	<li>
+		<div><div><span></span></div></div>
+	</li>
+	<li>
+		<div><div><span></span></div></div>
+	</li>
+	<li>
+		<div><div><span></span></div></div>
+	</li>
+	<li>
+		<div><div><span></span></div></div>
+	</li>
+	<li>
+		<div><div><span></span></div></div>
+	</li>
+	<li>
+		<div><div><span></span></div></div>
+	</li>
+	<li>
+		<div><div><span></span></div></div>
+	</li>
+	<li>
+		<div><div><span></span></div></div>
+	</li>
+	<li>
+		<div><div><span></span></div></div>
+	</li>
+	<li>
+		<div><div><span></span></div></div>
+	</li>
+	<li>
+		<div><div><span></span></div></div>
+	</li>
+</ul>
+
+<div id="loader">
+	<select name="music">
+		<option value="elemental_creation">Elemental Creation (Taka, YotDark) - Sync OK</option>
+		<option value="heavenly">Heavenly Moon (Tatsh) - Sync OK</option>
+		<option value="solcosine">Sol Cosine Job 2 - Sync OK</option>
+		<option value="plan8">Plan 8 - Sync OK</option>
+		<option value="gaia">GAIA - Sync OK</option>
+		<option value="stulti">STULTI - Sync OK</option>
+		<option value="zz">ZZ - Sync OK</option>
+		<option value="mothership">Mothership (후지모리 장단) - Sync OK</option>
+		<option value="magnetic">Magnetic  (후지모리 장단) - Sync OK</option>
+		<option value="sunrise">Sakura Sunrise - Sync OK</option>
+		<option value="quaver">quaver (Risk Junk-food) - Sync OK</option>
+		<option value="confiserie">Confiserie - ADV OK</option>
+		<option value="imsohappy">I'm so happy (Ryu)</option>
+		<option value="nanahosi">ナナホシ (S-C-U)</option>
+	</select>
+	<select name="difficulty">
+		<option value="bsc" disabled>BASIC</option>
+		<option value="adv">ADVANCED</option>
+		<option value="ext" selected>EXTREME</option>
+	</select>
+	<input type="button" name="submit" onclick="loadJubeat();this.setAttribute('disabled', 'disabled')" value="재생">
+</div>
+
+<div id="progress">
+	<div class="stat">
+	</div>
+	<div class="progress">
+		<div class="line"></div>
+	</div>
+</div>
+
+<script>
+	var filter = 'win16|win32|win64|mac|macintel|intel';
+	var jbt = null;
+	if(navigator.platform){
+		if(filter.indexOf(navigator.platform.toLowerCase()) < 0){
+			alert('모바일 환경에서는 이용할 수 없습니다. ㅠㅠ');
+			window.stop();
+		} else {
+			if(navigator.userAgent.indexOf('Safari') == -1 && navigator.userAgent.indexOf('Chrome') == -1) {
+				alert('Google Chrome 또는 Safari 환경에서만 사용할 수 있습니다.');
+				window.stop();
+			} else {
+				var jbt = new jubeat();
+				jbt.playClap = true;
+
+				soundManager.setup({
+					url: './soundmanager2/swf/',
+					preferFlash: false,
+					debugMode: false,
+					useHighPerformance: false
+				});
+
+				function loadJubeat() {
+					jbt.configure({
+						'rootElement': $('#jubeat')[0],
+						'loadElement': $('#progress div.progress div.line')[0],
+						'comboElement': $('#combo')[0]
+					});
+
+					jbt.loadChaebo({
+						name: $('select[name="music"]').val(),
+						difficulty: $('select[name="difficulty"]').val()
+					}, function(chaebo) {
+						jbt.setChaebo(chaebo, function() {
+							jbt.drawMusicBar($('#mubar')[0]);
+							jbt.start();
+						});
+					});
+				};
+
+				var jbtController = function() {
+					this.zoom = 1.0;
+					this.speed = 1.0;
+					this.clap = false;
+
+					this.apply = function() {
+						if(jbt.started == true) {
+							alert('재생이 시작되어 컨트롤이 되지 않습니다.');
+							return;
+						}
+
+						$('#jubeat, #mubar, #combo').css('zoom', this.zoom);
+					};
+				};
+
+				var controller = new jbtController();
+				var gui = new dat.GUI();
+				gui.add(controller, 'zoom', 0.5, 1.0);
+				gui.add(controller, 'speed', 0.5, 1.0);
+				gui.add(controller, 'clap');
+				gui.add(controller, 'apply');
+			}
+		}
+	}
+
+	$(document).on('dragstart selectstart', function() {
+		return false;
+	});
+
+</script>
+</body>
+</html>

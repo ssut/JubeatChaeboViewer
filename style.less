@@ -1,0 +1,327 @@
+@charset "utf-8";
+
+@size: 720px;
+@block_size: @size / 4;
+@button_size: @block_size - 20;
+@marker_pos: -170px;
+@zoom: 1.0;
+
+/* global */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,textarea,p,blockquote,th,td,input,select,textarea,button { margin: 0; padding: 0 }
+fieldset,img { border:0 none }
+dl,ul,ol,menu,li { list-style: none }
+blockquote, q { quotes: none }
+blockquote:before, blockquote:after,q:before, q:after { content: ''; content: none }
+input,select,textarea,button { vertical-align: middle }
+button { border: 0 none; background-color: transparent; cursor: pointer }
+body,th,td,input,select,textarea,button { font-size: 12px; line-height: 1.5; font-family: 나눔고딕, NanumGothic; color: #333 }
+a { color: #333; text-decoration: none }
+a:active, a:hover { text-decoration: underline }
+address,caption,cite,code,dfn,em,var { font-style: normal; font-weight: normal }
+table { table-layout: fixed }
+em { font-style: normal; font-weight: bold; }
+
+::selection {
+	background-color: rgba(0, 0, 0, 0.05);
+}
+::-webkit-selection {
+	background-color: rgba(0, 0, 0, 0.05);
+}
+
+.clearfix {
+	*zoom: 1;
+
+	&:before, &:after {
+		display: table;
+		line-height: 0;
+		content: '';
+	}
+
+	&:after {
+		clear: both;
+	}
+}
+
+.hide-text {
+	font: 0/0 a;
+	color: transparent;
+	text-shadow: none;
+	background-color: transparent;
+	border: 0;
+}
+
+.select-element { -webkit-user-drag: element;-webkit-user-select: none }
+
+/* Web fonts */
+@font-face {
+    font-family: 'Saucer Info';
+    src: local('Saucer Info'), local('Saucer Info Regular'), url(font/SaucerInfo-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'Saucer Info';
+    src: local('Saucer Info'), local('Saucer Info Bold'), url(font/SaucerInfo-Bold.ttf);
+    font-weight: bold;
+}
+/**/
+
+@-webkit-keyframes mkr_shutter {
+	5% { background-position: 0px 0px;  } 
+	9% { background-position: -170px 0px;  } 
+	13% { background-position: -340px 0px;  } 
+	17% { background-position: -510px 0px;  } 
+	21% { background-position: -680px 0px;  } 
+	25% { background-position: -850px 0px;  } 
+	29% { background-position: -1020px 0px;  } 
+	33% { background-position: -1190px 0px;  } 
+	37% { background-position: -1360px 0px;  } 
+	41% { background-position: -1530px 0px;  } 
+	44% { background-position: -1700px 0px;  } 
+	47% { background-position: -1870px 0px;  } 
+	51% { background-position: -2040px 0px;  } 
+	55% { background-position: -2210px 0px;  } 
+	59% { background-position: -2380px 0px;  } 
+	63% { background-position: -2550px 0px;  } 
+	66% { background-position: -2720px 0px;  } 
+	69% { background-position: -2890px 0px;  } 
+	72% { background-position: -3060px 0px;  } 
+	75% { background-position: -3230px 0px;  } 
+	78% { background-position: -3400px 0px;  } 
+	81% { background-position: -3570px 0px;  } 
+	84% { background-position: -3740px 0px;  } 
+	87% { background-position: -3910px 0px;  } 
+	90% { background-position: -4080px 0px;  } 
+	93% { background-position: -4250px 0px;  } 
+	95% { background-position: -4420px 0px;  } 
+	97% { background-position: -4590px 0px;  } 
+	99% { background-position: -4760px 0px;  } 
+	100% { background-position: -4930px 0px;  } 
+}
+@-webkit-keyframes mkr_yubico {
+	0% { background-position: 0px -100px; }
+	5% { background-position: 0px -50px;  } 
+	8% { background-position: 0px -40px;  } 
+	11% { background-position: 0px -30px;  } 
+	14% { background-position: 0px -20px;  } 
+	17% { background-position: 0px -10px;  } 
+	20% { background-position: 0px 0;  } 
+	23% { background-position: -170px 0px;  } 
+	26% { background-position: -340px 0px;  } 
+	29% { background-position: -510px 0px;  } 
+	32% { background-position: -680px 0px;  } 
+	35% { background-position: -850px 0px;  } 
+	38% { background-position: -1020px 0px;  } 
+	41% { background-position: -1190px 0px;  } 
+	44% { background-position: -1360px 0px;  } 
+	47% { background-position: -1530px 0px;  } 
+	50% { background-position: -1700px 0px;  } 
+	53% { background-position: -1870px 0px;  } 
+	56% { background-position: -2040px 0px;  } 
+	59% { background-position: -2210px 0px;  } 
+	62% { background-position: -2380px 0px;  } 
+	65% { background-position: -2550px 0px;  } 
+	68% { background-position: -2720px 0px;  } 
+	71% { background-position: -2890px 0px;  } 
+	72% { background-position: -3060px 0px;  } 
+	75% { background-position: -3230px 0px;  } 
+	78% { background-position: -3400px 0px;  } 
+	81% { background-position: -3570px 0px;  } 
+	84% { background-position: -3740px 0px;  } 
+	87% { background-position: -3910px 0px;  } 
+	90% { background-position: -4080px 0px;  } 
+	93% { background-position: -4250px 0px;  } 
+	95% { background-position: -4420px 0px;  } 
+	97% { background-position: -4590px 0px;  } 
+	99% { background-position: -4760px 0px;  } 
+	100% { background-position: -4930px 0px;  } 
+}
+
+@-webkit-keyframes bounce {
+	0% {
+		-webkit-transform:translateY(0%);
+	}
+	50% {
+		-webkit-transform: translateY(-1%);
+	}
+	75% {
+		-webkit-transform: translateY(0.5%);
+	}
+	100% {
+		-webkit-transform: translateY(0%);
+	}
+}
+
+
+.marker-shutter {
+	background-color: transparent;
+	background-image: url(marker/_shutter.png);
+	background-repeat: no-repeat;
+	background-size: cover;
+	opacity: 1;
+
+	width: @button_size; height: @button_size;
+
+	-webkit-animation-name: mkr_shutter;
+	-webkit-animation-duration: 1s;
+	-webkit-animation-timing-function: steps(1);
+	-webkit-animation-iteration-count: 1;
+	-webkit-animation-fill-mode: forwards;
+}
+
+body {
+	margin: 0; padding: 0;
+
+	#jubeat {
+		position: fixed;
+		top: 50%; left: 50%;
+		width: @size; height: @size;
+		margin: -(@size / 2) 0 0 -(@size / 2); padding: 0;
+		list-style: none;
+		z-index: 2;
+		zoom: @zoom;
+
+		li {
+			position: relative;
+			margin: 0; padding: 0;
+			width: @block_size; height: @block_size;
+			float: left;
+			.select-element;
+
+			& > div {
+				position: absolute;
+				top: 50%; left: 50%;
+				width: @button_size; height: @button_size;
+				margin: -(@button_size / 2) 0 0 -(@button_size / 2);
+				border: 1px solid rgba(255,255,255,0.3);
+				box-shadow: 0 0 3px rgba(255,255,255,0.7);
+				box-sizing: content-box;
+
+				-webkit-transition: border 0.2s ease-out;
+				transition: border 0.2s ease-out;
+
+				& > div {
+					width: 100%; height: 100%;
+					box-sizing: border-box;
+
+					span {
+
+					}
+				}
+			}
+		}
+	}
+
+	@mb_size: 60px;
+	#mubar {
+		position: fixed;
+		top: 50%; left: 50%;
+		width: @size; height: @mb_size;
+		margin: -(@size / 2 + @mb_size) 0 0 -(@size / 2); padding: 0;
+		list-style: none;
+		font-size: 1px;
+		z-index: 3;
+		zoom: @zoom;
+
+		li {
+			position: relative;
+			display: block;
+			width: @size / 120; height: 100%;
+			font-size: 0.1px;
+			overflow: hidden;
+			float: left;
+
+			div {
+				position: relative;
+				display: block;
+				width: @size / 120; height: @size / 120;
+				
+				&.fill {
+					&.gray { background-color: #a4a4a4; i { background-color: #707070; } }
+					&.black { background-color: #848383; i { background-color: #bdbbb9; } }
+					&.yellow { background-color: #ffe71e; i { background-color: #ffcc00; } }
+					&.blue { background-color: #48aec8; i { background-color: #84cbe2; } }
+				}
+
+				i {
+					position: absolute;
+					top: 50%; left: 50%;
+					width: 3px; height: 3px;
+					margin: -1.5px 0 0 -1.5px;
+					display: none;
+				}
+			}
+		}
+	}
+
+	#combo {
+		position: fixed;
+		top: 50%; left: 50%;
+		width: @size; height: @size;
+		margin: -(@size / 2) 0 0 -(@size / 2); padding: 0;
+		text-align: center; line-height: @size;
+		z-index: 1;
+		zoom: @zoom;
+
+		.select-element;
+
+		font-size: 186px;
+		font-family: "Saucer Info", "Malgun Gothic", "맑은 고딕", "NanumGothic", "나눔고딕", sans-serif;
+		font-weight: bold;
+		color: rgba(255, 255, 255, 0.8);
+
+		background: transparent url(background/magenta.png) no-repeat 50% 50%;
+		background-size: cover;
+
+		span {
+			text-transform: uppercase;
+			display: inline-block;
+			letter-spacing: -30px;
+			text-align: center;
+
+			&.release { -webkit-animation: bounce 0.04s linear; }
+		}
+	}
+
+	#loader {
+		position: fixed;
+		top: 0; left: 0;
+		width: 200px; height: auto;
+		margin: 0; padding: 15px;
+		border: 1px solid #DDD;
+
+		input {
+			&[type="text"] {
+				width: 100%;
+				margin: 0; padding: 0;
+			}
+
+			&:last-child {
+				float: right;
+			}
+		}
+	}
+
+	#progress {
+		position: fixed;
+		bottom: 0; left: 0;
+		width: 100%; height: auto;
+
+		div.stat {
+			text-align: left;
+			font-family: "Saucer Info";
+			font-size: 13px;
+		}
+		div.progress {
+			width: 100%;
+			background-color: #FFF;
+
+			div.line {
+				background-color: #2E8DEF;
+				width: 0%; height: 4px;
+				line-height: 4px;
+				font-size: 0;
+				overflow: hidden;
+			}
+		}
+	}
+}
