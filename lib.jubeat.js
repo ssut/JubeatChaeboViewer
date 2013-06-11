@@ -36,16 +36,23 @@
  */
 
 (function() {
+	// ECMAScript 5 Strict Mode
 	"use strict";
 
+	// Only Google Chrome
 	if(window.chrome == undefined) {
 		console.error('This applicsation only supported for Google Chrome.');
 		return;
 	}
 
+	// Check jQuery Object
 	if(window.jQuery == undefined) {
 		console.error('Cannot find jQuery Object.');
 		return;
+	} else {
+		// Bind jQuery
+		if(window.$ == undefined)
+			window.$ = window.jQuery;
 	}
 
 	var rand = function(min, max) {
@@ -399,22 +406,6 @@
 							root.comboElement.classList.remove('release');
 						root.comboElement.classList.add('release');
 					}
-					// if(root.comboElement.root != null) {
-					// 	if(root.combo > 6) {
-					// 		var cmb = root.combo.toString().split('');
-					// 		while(cmb.length < 4) {
-					// 			cmb.splice(0, 0, '0');
-					// 		}
-					// 		for(var i = 0; i < 4; i++) {
-					// 			if(root.comboElement[i].innerText != cmb[i]) {
-					// 				root.comboElement[i].innerText = cmb[i];
-					// 				if(root.comboElement[i].classList.contains('release'))
-					// 					root.comboElement[i].classList.remove('release');
-					// 				root.comboElement[i].classList.add('release');
-					// 			}
-					// 		}
-					// 	}
-					// }
 				}, sync);
 			};
 		};
